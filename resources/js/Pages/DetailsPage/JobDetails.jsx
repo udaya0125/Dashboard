@@ -238,7 +238,9 @@ const JobDetails = ({ job }) => {
                                     <h2 className="text-lg font-semibold mb-2">
                                         Responsibilities:
                                     </h2>
-                                    <ListRenderer htmlContent={job.responsibilities}/>
+                                    <ListRenderer
+                                        htmlContent={job.responsibilities}
+                                    />
                                 </div>
                             )}
                             {/* //className="prose max-w-none" */}
@@ -248,7 +250,9 @@ const JobDetails = ({ job }) => {
                                     <h2 className="text-lg font-semibold mb-2">
                                         Requirements:
                                     </h2>
-                                    <ListRenderer htmlContent={job.requirements}/>
+                                    <ListRenderer
+                                        htmlContent={job.requirements}
+                                    />
                                 </div>
                             )}
 
@@ -268,7 +272,9 @@ const JobDetails = ({ job }) => {
                                     <h2 className="text-lg font-semibold mb-2">
                                         Skill & Experience:
                                     </h2>
-                                    <ListRenderer htmlContent={job.skill_and_experience}/>
+                                    <ListRenderer
+                                        htmlContent={job.skill_and_experience}
+                                    />
                                 </div>
                             )}
 

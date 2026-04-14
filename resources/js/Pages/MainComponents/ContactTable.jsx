@@ -1,11 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { ArrowDownUp, Eye, LoaderCircle, PenBoxIcon, Plus, Search, Trash, Upload } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import {
+    ArrowDownUp,
+    Eye,
+    LoaderCircle,
+    PenBoxIcon,
+    Plus,
+    Search,
+    Trash,
+    Upload,
+} from "lucide-react";
 import { Link } from "@inertiajs/react";
-import Wrapper from '../BarComponents/Wrapper';
-import ContactForm from '@/AddFormComponemts/ContactForm';
+import Wrapper from "../BarComponents/Wrapper";
+import ContactForm from "@/AddFormComponemts/ContactForm";
 import * as XLSX from "xlsx";
-import EditContactForm from '@/EditFormComponents/EditContactForm ';
+import EditContactForm from "@/EditFormComponents/EditContactForm ";
 
 const ContactTable = () => {
     const [allContacts, setAllContacts] = useState([]);
@@ -33,11 +42,12 @@ const ContactTable = () => {
     }, [reloadTrigger]);
 
     const handleDelete = async (id) => {
-        if (!window.confirm("Are you sure you want to delete this contact?")) return;
-        
+        if (!window.confirm("Are you sure you want to delete this contact?"))
+            return;
+
         try {
             await axios.delete(route("contacts.destroy", { id }));
-            setReloadTrigger(prev => !prev);
+            setReloadTrigger((prev) => !prev);
         } catch (error) {
             console.error("Delete error", error);
         }
@@ -48,9 +58,9 @@ const ContactTable = () => {
             formData.append("_method", "PUT");
             const response = await axios.post(
                 route("contacts.update", { id }),
-                formData
+                formData,
             );
-            setReloadTrigger(prev => !prev);
+            setReloadTrigger((prev) => !prev);
             return response.data;
         } catch (error) {
             console.error("Error updating contact", error);
@@ -84,7 +94,9 @@ const ContactTable = () => {
             const name = contact.name ? contact.name.toLowerCase() : "";
             const email = contact.email ? contact.email.toLowerCase() : "";
             const tags = contact.tags ? contact.tags.toLowerCase() : "";
-            const project = contact.project ? contact.project.toLowerCase() : "";
+            const project = contact.project
+                ? contact.project.toLowerCase()
+                : "";
             const query = searchQuery.toLowerCase();
 
             return (
@@ -112,7 +124,9 @@ const ContactTable = () => {
             <div className="py-6 px-4 md:px-6 lg:px-10 w-full md:w-[82%] ml-auto mt-20 md:mt-0 pt-28">
                 <div className="">
                     <div className="flex flex-col gap-2 mb-8">
-                        <h2 className="text-3xl font-bold text-gray-800">Contacts Information</h2>
+                        <h2 className="text-3xl font-bold text-gray-800">
+                            Contacts Information
+                        </h2>
                         <p className="text-lg text-gray-600">
                             Manage and organize all your contacts in one place
                         </p>
@@ -128,23 +142,26 @@ const ContactTable = () => {
                     />
 
                     <EditContactForm
-                    showContactForm={showContactForm && editingContact}
-                    setShowContactForm={setShowContactForm}
-                    editingContact={editingContact}
-                    setEditingContact={setEditingContact}
-                    setReloadTrigger={setReloadTrigger}
-                    handleUpdate={handleUpdate}
-                />
-
+                        showContactForm={showContactForm && editingContact}
+                        setShowContactForm={setShowContactForm}
+                        editingContact={editingContact}
+                        setEditingContact={setEditingContact}
+                        setReloadTrigger={setReloadTrigger}
+                        handleUpdate={handleUpdate}
+                    />
 
                     <div className="flex flex-col gap-6 mb-8 lg:flex-row lg:justify-between lg:items-center">
                         <div className="flex flex-col sm:flex-row gap-3">
                             <button
-                                onClick={() => setReloadTrigger(prev => !prev)}
+                                onClick={() =>
+                                    setReloadTrigger((prev) => !prev)
+                                }
                                 className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50 transition-colors"
                             >
                                 <LoaderCircle className="h-4 w-4 text-gray-600" />
-                                <span className="text-sm text-gray-700">Refresh</span>
+                                <span className="text-sm text-gray-700">
+                                    Refresh
+                                </span>
                             </button>
 
                             <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow-sm border border-gray-200 hover:bg-gray-50 transition-colors">
@@ -172,7 +189,9 @@ const ContactTable = () => {
                                     placeholder="Search contacts..."
                                     className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
                                     value={searchQuery}
-                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                    onChange={(e) =>
+                                        setSearchQuery(e.target.value)
+                                    }
                                 />
                             </div>
                         </form>
@@ -203,7 +222,9 @@ const ContactTable = () => {
                             <div className="flex justify-center items-center h-64">
                                 <div className="flex flex-col items-center">
                                     <LoaderCircle className="animate-spin h-10 w-10 text-purple-600 mb-3" />
-                                    <p className="text-gray-600">Loading contacts...</p>
+                                    <p className="text-gray-600">
+                                        Loading contacts...
+                                    </p>
                                 </div>
                             </div>
                         ) : (
@@ -240,32 +261,44 @@ const ContactTable = () => {
                                     <tbody className="divide-y divide-gray-200">
                                         {filteredContacts.length > 0 ? (
                                             filteredContacts.map((contact) => (
-                                                <tr key={contact.id} className="hover:bg-gray-50 transition-colors">
+                                                <tr
+                                                    key={contact.id}
+                                                    className="hover:bg-gray-50 transition-colors"
+                                                >
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                         {contact.id || "-"}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <div className="flex justify-center">
                                                             {contact.image ? (
-                                                                <img 
+                                                                <img
                                                                     src={`/images/${contact.image}`}
-                                                                    alt={contact.name}
+                                                                    alt={
+                                                                        contact.name
+                                                                    }
                                                                     className="w-10 h-10 rounded-full object-cover"
-                                                                    onError={(e) => {
-                                                                        e.target.onerror = null; 
-                                                                        e.target.src = '/images/default-avatar.png';
+                                                                    onError={(
+                                                                        e,
+                                                                    ) => {
+                                                                        e.target.onerror =
+                                                                            null;
+                                                                        e.target.src =
+                                                                            "/images/default-avatar.png";
                                                                     }}
                                                                 />
                                                             ) : (
                                                                 <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
-                                                                    <span className="text-xs text-gray-500">No Image</span>
+                                                                    <span className="text-xs text-gray-500">
+                                                                        No Image
+                                                                    </span>
                                                                 </div>
                                                             )}
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <div className="text-sm font-medium text-gray-900">
-                                                            {contact.name || "-"}
+                                                            {contact.name ||
+                                                                "-"}
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
@@ -278,22 +311,31 @@ const ContactTable = () => {
                                                         {contact.project || "-"}
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap">
-                                                        <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
-                                                            contact.status === 'active' 
-                                                                ? 'bg-green-100 text-green-800' 
-                                                                : contact.status === 'inactive' 
-                                                                    ? 'bg-red-100 text-red-800' 
-                                                                    : 'bg-yellow-100 text-yellow-800'
-                                                        }`}>
-                                                            {contact.status?.toUpperCase() || "UNKNOWN"}
+                                                        <span
+                                                            className={`px-2.5 py-1 rounded-full text-xs font-medium ${
+                                                                contact.status ===
+                                                                "active"
+                                                                    ? "bg-green-100 text-green-800"
+                                                                    : contact.status ===
+                                                                        "inactive"
+                                                                      ? "bg-red-100 text-red-800"
+                                                                      : "bg-yellow-100 text-yellow-800"
+                                                            }`}
+                                                        >
+                                                            {contact.status?.toUpperCase() ||
+                                                                "UNKNOWN"}
                                                         </span>
                                                     </td>
                                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                         <div className="flex justify-end gap-1">
                                                             <button
                                                                 onClick={() => {
-                                                                    setEditingContact(contact);
-                                                                    setShowContactForm(true);
+                                                                    setEditingContact(
+                                                                        contact,
+                                                                    );
+                                                                    setShowContactForm(
+                                                                        true,
+                                                                    );
                                                                 }}
                                                                 className="p-2 text-purple-600 hover:text-purple-900 rounded hover:bg-purple-50 transition-colors"
                                                                 aria-label="Edit contact"
@@ -301,7 +343,12 @@ const ContactTable = () => {
                                                                 <PenBoxIcon className="h-4 w-4" />
                                                             </button>
                                                             <button
-                                                                onClick={() => contact.id && handleDelete(contact.id)}
+                                                                onClick={() =>
+                                                                    contact.id &&
+                                                                    handleDelete(
+                                                                        contact.id,
+                                                                    )
+                                                                }
                                                                 className="p-2 text-red-600 hover:text-red-900 rounded hover:bg-red-50 transition-colors"
                                                                 aria-label="Delete contact"
                                                             >
@@ -323,7 +370,10 @@ const ContactTable = () => {
                                                             No contacts found
                                                         </p>
                                                         <p className="text-sm">
-                                                            Try adjusting your search or filter to find what you're looking for.
+                                                            Try adjusting your
+                                                            search or filter to
+                                                            find what you're
+                                                            looking for.
                                                         </p>
                                                     </div>
                                                 </td>
@@ -338,9 +388,16 @@ const ContactTable = () => {
                     {filteredContacts.length > 0 && (
                         <div className="mt-4 flex justify-between items-center text-sm text-gray-600">
                             <div>
-                                Showing <span className="font-medium">1</span> to{" "}
-                                <span className="font-medium">{filteredContacts.length}</span> of{" "}
-                                <span className="font-medium">{filteredContacts.length}</span> results
+                                Showing <span className="font-medium">1</span>{" "}
+                                to{" "}
+                                <span className="font-medium">
+                                    {filteredContacts.length}
+                                </span>{" "}
+                                of{" "}
+                                <span className="font-medium">
+                                    {filteredContacts.length}
+                                </span>{" "}
+                                results
                             </div>
                             <div className="flex gap-2">
                                 <button className="px-3 py-1 border rounded-md hover:bg-gray-50 disabled:opacity-50">

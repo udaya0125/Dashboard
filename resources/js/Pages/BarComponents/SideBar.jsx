@@ -50,9 +50,9 @@ const SideBar = () => {
     });
 
     const toggleDropdown = (dropdown) => {
-        setOpenDropdowns(prev => ({
+        setOpenDropdowns((prev) => ({
             ...prev,
-            [dropdown]: !prev[dropdown]
+            [dropdown]: !prev[dropdown],
         }));
     };
 
@@ -60,40 +60,69 @@ const SideBar = () => {
         <div className="lg:w-[18%] md:w-[90%]  hidden  md:block p-4 h-screen bg-white shadow-lg fixed top-0 left-0 z-20 overflow-y-auto">
             <div className="flex items-center mb-8 pl-8 bg-white pt-3">
                 <div className="bg-gray-100 rounded-lg p-6 mr-3">
-                    <img src="../logo.png" alt="Logo" className="h-16 w-16 object-contain"  />
+                    <img
+                        src="../logo.png"
+                        alt="Logo"
+                        className="h-16 w-16 object-contain"
+                    />
                 </div>
             </div>
 
             <div className="flex flex-col gap-1">
                 {/* Menu Section */}
-                <div className="text-sm text-gray-500 font-light px-4 mb-2">Menu</div>
+                <div className="text-sm text-gray-500 font-light px-4 mb-2">
+                    Menu
+                </div>
                 <div>
-                    <div 
-                        onClick={() => toggleDropdown('dashboard')}
+                    <div
+                        onClick={() => toggleDropdown("dashboard")}
                         className="flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer hover:bg-gray-100"
                     >
                         <div className="flex items-center gap-3">
                             <span className="flex items-center justify-center w-8 h-8 rounded-lg">
-                                <LayoutDashboard size={20} className="text-gray-500" />
+                                <LayoutDashboard
+                                    size={20}
+                                    className="text-gray-500"
+                                />
                             </span>
-                            <span className="text-base font-medium">Dashboard</span>
+                            <span className="text-base font-medium">
+                                Dashboard
+                            </span>
                         </div>
-                        {openDropdowns.dashboard ? 
-                            <ChevronDown size={16} className="text-gray-500" /> : 
+                        {openDropdowns.dashboard ? (
+                            <ChevronDown size={16} className="text-gray-500" />
+                        ) : (
                             <ChevronRight size={16} className="text-gray-500" />
-                        }
+                        )}
                     </div>
                     {openDropdowns.dashboard && (
                         <div className="ml-12 pl-2 py-1 space-y-2">
-                            <a href="/dashboard/analytics" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Analytics</a>
-                            <a href="/dashboard/sales" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Sales</a>
-                            <a href="/dashboard/crm" className="block py-2 text-sm text-gray-600 hover:text-blue-500">CRM</a>
+                            <a
+                                href="/dashboard/analytics"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Analytics
+                            </a>
+                            <a
+                                href="/dashboard/sales"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Sales
+                            </a>
+                            <a
+                                href="/dashboard/crm"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                CRM
+                            </a>
                         </div>
                     )}
                 </div>
 
                 {/* Apps Section */}
-                <div className="text-sm text-gray-500 font-light px-4 mb-2 mt-4">Apps</div>
+                <div className="text-sm text-gray-500 font-light px-4 mb-2 mt-4">
+                    Apps
+                </div>
 
                 <a
                     href="/calendar"
@@ -113,7 +142,10 @@ const SideBar = () => {
                 >
                     <div className="flex items-center gap-3">
                         <span className="flex items-center justify-center w-8 h-8 rounded-lg">
-                            <MessageSquare size={20} className="text-gray-600" />
+                            <MessageSquare
+                                size={20}
+                                className="text-gray-600"
+                            />
                         </span>
                         <span className="text-base font-medium">Chat</span>
                     </div>
@@ -132,27 +164,48 @@ const SideBar = () => {
                 </a> */}
 
                 <div>
-                    <div 
-                        onClick={() => toggleDropdown('ecommerce')}
+                    <div
+                        onClick={() => toggleDropdown("ecommerce")}
                         className="flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer hover:bg-gray-100"
                     >
                         <div className="flex items-center gap-3">
                             <span className="flex items-center justify-center w-8 h-8 rounded-lg">
-                                <ShoppingCart size={20} className="text-gray-600" />
+                                <ShoppingCart
+                                    size={20}
+                                    className="text-gray-600"
+                                />
                             </span>
-                            <span className="text-base font-medium">Ecommerce</span>
+                            <span className="text-base font-medium">
+                                Ecommerce
+                            </span>
                         </div>
-                        {openDropdowns.ecommerce ? 
-                            <ChevronDown size={16} className="text-gray-500" /> : 
+                        {openDropdowns.ecommerce ? (
+                            <ChevronDown size={16} className="text-gray-500" />
+                        ) : (
                             <ChevronRight size={16} className="text-gray-500" />
-                        }
+                        )}
                     </div>
                     {openDropdowns.ecommerce && (
                         <div className="ml-12 pl-2 py-1 space-y-2">
-                            <a href="/ecommerce/products" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Products</a>
+                            <a
+                                href="/ecommerce/products"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Products
+                            </a>
                             {/* <a href="/ecommerces/orders" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Orders</a> */}
-                            <a href="/ecommerces/customers" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Customers</a>
-                            <a href="/ecommerces/faq" className="block py-2 text-sm text-gray-600 hover:text-blue-500">FAQ</a>
+                            <a
+                                href="/ecommerces/customers"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Customers
+                            </a>
+                            <a
+                                href="/ecommerces/faq"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                FAQ
+                            </a>
                         </div>
                     )}
                 </div>
@@ -183,7 +236,9 @@ const SideBar = () => {
                 </div> */}
 
                 {/* Additional Section */}
-                <div className="text-sm text-gray-500 font-light px-4 mb-2 mt-4">Additional</div>
+                <div className="text-sm text-gray-500 font-light px-4 mb-2 mt-4">
+                    Additional
+                </div>
 
                 {/* <div>
                     <div 
@@ -211,51 +266,87 @@ const SideBar = () => {
                 </div> */}
 
                 <div>
-                    <div 
-                        onClick={() => toggleDropdown('invoices')}
+                    <div
+                        onClick={() => toggleDropdown("invoices")}
                         className="flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer hover:bg-gray-100"
                     >
                         <div className="flex items-center gap-3">
                             <span className="flex items-center justify-center w-8 h-8 rounded-lg">
                                 <FileText size={20} />
                             </span>
-                            <span className="text-base font-medium">Invoices</span>
+                            <span className="text-base font-medium">
+                                Invoices
+                            </span>
                         </div>
-                        {openDropdowns.invoices ? 
-                            <ChevronDown size={16} className="text-gray-500" /> : 
+                        {openDropdowns.invoices ? (
+                            <ChevronDown size={16} className="text-gray-500" />
+                        ) : (
                             <ChevronRight size={16} className="text-gray-500" />
-                        }
+                        )}
                     </div>
                     {openDropdowns.invoices && (
                         <div className="ml-12 pl-2 py-1 space-y-2">
-                            <a href="/invoices/list" className="block py-2 text-sm text-gray-600 hover:text-blue-500">List</a>
-                            <a href="/invoices/details" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Details</a>
-                            <a href="/invoices/create" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Create</a>
+                            <a
+                                href="/invoices/list"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                List
+                            </a>
+                            <a
+                                href="/invoices/details"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Details
+                            </a>
+                            <a
+                                href="/invoices/create"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Create
+                            </a>
                         </div>
                     )}
                 </div>
 
                 <div>
-                    <div 
-                        onClick={() => toggleDropdown('projects')}
+                    <div
+                        onClick={() => toggleDropdown("projects")}
                         className="flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer hover:bg-gray-100"
                     >
                         <div className="flex items-center gap-3">
                             <span className="flex items-center justify-center w-8 h-8 rounded-lg">
                                 <Clipboard size={20} />
                             </span>
-                            <span className="text-base font-medium">Projects</span>
+                            <span className="text-base font-medium">
+                                Projects
+                            </span>
                         </div>
-                        {openDropdowns.projects ? 
-                            <ChevronDown size={16} className="text-gray-500" /> : 
+                        {openDropdowns.projects ? (
+                            <ChevronDown size={16} className="text-gray-500" />
+                        ) : (
                             <ChevronRight size={16} className="text-gray-500" />
-                        }
+                        )}
                     </div>
                     {openDropdowns.projects && (
                         <div className="ml-12 pl-2 py-1 space-y-2">
-                            <a href="/projects/list" className="block py-2 text-sm text-gray-600 hover:text-blue-500">List</a>
-                            <a href="/projects/details" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Details</a>
-                            <a href="/projects/create" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Create</a>
+                            <a
+                                href="/projects/list"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                List
+                            </a>
+                            <a
+                                href="/projects/details"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Details
+                            </a>
+                            <a
+                                href="/projects/create"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Create
+                            </a>
                         </div>
                     )}
                 </div>
@@ -286,26 +377,44 @@ const SideBar = () => {
                 </div> */}
 
                 <div>
-                    <div 
-                        onClick={() => toggleDropdown('contacts')}
+                    <div
+                        onClick={() => toggleDropdown("contacts")}
                         className="flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer hover:bg-gray-100"
                     >
                         <div className="flex items-center gap-3">
                             <span className="flex items-center justify-center w-8 h-8 rounded-lg">
                                 <Users size={20} />
                             </span>
-                            <span className="text-base font-medium">Contacts</span>
+                            <span className="text-base font-medium">
+                                Contacts
+                            </span>
                         </div>
-                        {openDropdowns.contacts ? 
-                            <ChevronDown size={16} className="text-gray-500" /> : 
+                        {openDropdowns.contacts ? (
+                            <ChevronDown size={16} className="text-gray-500" />
+                        ) : (
                             <ChevronRight size={16} className="text-gray-500" />
-                        }
+                        )}
                     </div>
                     {openDropdowns.contacts && (
                         <div className="ml-12 pl-2 py-1 space-y-2">
-                            <a href="/contacts/grid" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Grid View</a>
-                            <a href="/contacts/list" className="block py-2 text-sm text-gray-600 hover:text-blue-500">List View</a>
-                            <a href="/contacts/profile" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Profile</a>
+                            <a
+                                href="/contacts/grid"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Grid View
+                            </a>
+                            <a
+                                href="/contacts/list"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                List View
+                            </a>
+                            <a
+                                href="/contacts/profile"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Profile
+                            </a>
                         </div>
                     )}
                 </div>
@@ -336,8 +445,8 @@ const SideBar = () => {
                 </div> */}
 
                 <div>
-                    <div 
-                        onClick={() => toggleDropdown('jobs')}
+                    <div
+                        onClick={() => toggleDropdown("jobs")}
                         className="flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer hover:bg-gray-100"
                     >
                         <div className="flex items-center gap-3">
@@ -346,44 +455,80 @@ const SideBar = () => {
                             </span>
                             <span className="text-base font-medium">Jobs</span>
                         </div>
-                        {openDropdowns.jobs ? 
-                            <ChevronDown size={16} className="text-gray-500" /> : 
+                        {openDropdowns.jobs ? (
+                            <ChevronDown size={16} className="text-gray-500" />
+                        ) : (
                             <ChevronRight size={16} className="text-gray-500" />
-                        }
+                        )}
                     </div>
                     {openDropdowns.jobs && (
                         <div className="ml-12 pl-2 py-1 space-y-2">
-                            <a href="/jobs/list" className="block py-2 text-sm text-gray-600 hover:text-blue-500">List</a>
-                            <a href="/jobs/details" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Details</a>
-                            <a href="/jobs/apply" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Apply</a>
+                            <a
+                                href="/jobs/list"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                List
+                            </a>
+                            <a
+                                href="/jobs/details"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Details
+                            </a>
+                            <a
+                                href="/jobs/apply"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Apply
+                            </a>
                         </div>
                     )}
                 </div>
 
                 {/* Authentication Section */}
-                <div className="text-sm text-gray-500 font-light px-4 mb-2 mt-4">Authentication</div>
+                <div className="text-sm text-gray-500 font-light px-4 mb-2 mt-4">
+                    Authentication
+                </div>
 
                 <div>
-                    <div 
-                        onClick={() => toggleDropdown('authentication')}
+                    <div
+                        onClick={() => toggleDropdown("authentication")}
                         className="flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer hover:bg-gray-100"
                     >
                         <div className="flex items-center gap-3">
                             <span className="flex items-center justify-center w-8 h-8 rounded-lg">
                                 <Lock size={20} />
                             </span>
-                            <span className="text-base font-medium">Authentication</span>
+                            <span className="text-base font-medium">
+                                Authentication
+                            </span>
                         </div>
-                        {openDropdowns.authentication ? 
-                            <ChevronDown size={16} className="text-gray-500" /> : 
+                        {openDropdowns.authentication ? (
+                            <ChevronDown size={16} className="text-gray-500" />
+                        ) : (
                             <ChevronRight size={16} className="text-gray-500" />
-                        }
+                        )}
                     </div>
                     {openDropdowns.authentication && (
                         <div className="ml-12 pl-2 py-1 space-y-2">
-                            <a href="/auth/login" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Login</a>
-                            <a href="/auth/register" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Register</a>
-                            <a href="/auth/forgot-password" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Forgot Password</a>
+                            <a
+                                href="/auth/login"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Login
+                            </a>
+                            <a
+                                href="/auth/register"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Register
+                            </a>
+                            <a
+                                href="/auth/forgot-password"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Forgot Password
+                            </a>
                         </div>
                     )}
                 </div>
@@ -414,7 +559,6 @@ const SideBar = () => {
                 </div> */}
 
                 {/* Components Section */}
-              
 
                 {/* <div>
                     <div 
@@ -467,26 +611,44 @@ const SideBar = () => {
                 </div> */}
 
                 <div>
-                    <div 
-                        onClick={() => toggleDropdown('tables')}
+                    <div
+                        onClick={() => toggleDropdown("tables")}
                         className="flex items-center justify-between px-4 py-3 rounded-xl cursor-pointer hover:bg-gray-100"
                     >
                         <div className="flex items-center gap-3">
                             <span className="flex items-center justify-center w-8 h-8 rounded-lg">
                                 <Table size={20} />
                             </span>
-                            <span className="text-base font-medium">Tables</span>
+                            <span className="text-base font-medium">
+                                Tables
+                            </span>
                         </div>
-                        {openDropdowns.tables ? 
-                            <ChevronDown size={16} className="text-gray-500" /> : 
+                        {openDropdowns.tables ? (
+                            <ChevronDown size={16} className="text-gray-500" />
+                        ) : (
                             <ChevronRight size={16} className="text-gray-500" />
-                        }
+                        )}
                     </div>
                     {openDropdowns.tables && (
                         <div className="ml-12 pl-2 py-1 space-y-2">
-                            <a href="/tables/basic" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Basic Tables</a>
-                            <a href="/tables/data" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Data Tables</a>
-                            <a href="/tables/editable" className="block py-2 text-sm text-gray-600 hover:text-blue-500">Editable Tables</a>
+                            <a
+                                href="/tables/basic"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Basic Tables
+                            </a>
+                            <a
+                                href="/tables/data"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Data Tables
+                            </a>
+                            <a
+                                href="/tables/editable"
+                                className="block py-2 text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Editable Tables
+                            </a>
                         </div>
                     )}
                 </div>

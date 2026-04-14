@@ -3,9 +3,9 @@ import NavBar from "./NavBar";
 import SideBar from "./SideBar";
 import Footer from "./Footer";
 
-const Wrapper = ({children}) => {
-    const [showResponsiveSidebar,setShowResponsiveSideBar]=useState(false)
-  const [show,setShow]=useState(false)
+const Wrapper = ({ children }) => {
+    const [showResponsiveSidebar, setShowResponsiveSideBar] = useState(false);
+    const [show, setShow] = useState(false);
     return (
         <div>
             <NavBar
