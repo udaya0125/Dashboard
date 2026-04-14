@@ -41,7 +41,7 @@ const CustomersForm = ({
                     "Content-Type": "multipart/form-data",
                 },
             });
-            setReloadTrigger(prev => !prev);
+            setReloadTrigger((prev) => !prev);
             setShowCustomerForm(false);
         } catch (error) {
             console.error("Error creating customer", error);
@@ -52,7 +52,7 @@ const CustomersForm = ({
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        
+
         Object.entries(formCustomer).forEach(([key, value]) => {
             if (value !== null && value !== "") {
                 formData.append(key, value);
@@ -72,11 +72,11 @@ const CustomersForm = ({
 
     const handleChange = (e) => {
         const { name, value, type, files } = e.target;
-        
+
         if (type === "file") {
             const file = files[0];
-            setFormCustomer(prev => ({ ...prev, [name]: file }));
-            
+            setFormCustomer((prev) => ({ ...prev, [name]: file }));
+
             if (file) {
                 const reader = new FileReader();
                 reader.onload = () => setImagePreview(reader.result);
@@ -85,7 +85,7 @@ const CustomersForm = ({
                 setImagePreview(null);
             }
         } else {
-            setFormCustomer(prev => ({ ...prev, [name]: value }));
+            setFormCustomer((prev) => ({ ...prev, [name]: value }));
         }
     };
 
@@ -95,7 +95,9 @@ const CustomersForm = ({
     };
 
     return (
-        <div className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ${showCustomerForm ? "block" : "hidden"}`}>
+        <div
+            className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ${showCustomerForm ? "block" : "hidden"}`}
+        >
             <div className="relative bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
                 <button
                     onClick={handleClose}
@@ -109,7 +111,10 @@ const CustomersForm = ({
                         Add New Customer
                     </h2>
 
-                    <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                    >
                         {/* Customer Name */}
                         <div className="col-span-2">
                             <label className="block text-sm font-medium text-gray-700 mb-1">
