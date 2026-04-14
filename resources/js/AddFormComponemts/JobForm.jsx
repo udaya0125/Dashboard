@@ -5,13 +5,16 @@ import { useForm } from "react-hook-form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const JobForm = ({
-    showJobForm,
-    setShowJobForm,
-    setReloadTrigger,
-}) => {
+const JobForm = ({ showJobForm, setShowJobForm, setReloadTrigger }) => {
     const [submitting, setSubmitting] = useState(false);
-    const { register, handleSubmit, reset, formState: { errors }, setValue, watch } = useForm({
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+        setValue,
+        watch,
+    } = useForm({
         defaultValues: {
             job_title: "",
             company_name: "",
@@ -30,32 +33,36 @@ const JobForm = ({
             position: "",
             type: "full_time",
             status: "active",
-        }
+        },
     });
 
     // React Quill modules configuration
     const modules = {
         toolbar: [
-            [{ 'header': [1, 2, 3, false] }],
-            ['bold', 'italic', 'underline', 'strike'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['link'],
-            ['clean']
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link"],
+            ["clean"],
         ],
     };
 
     // React Quill formats configuration
     const formats = [
-        'header',
-        'bold', 'italic', 'underline', 'strike',
-        'list', 'bullet',
-        'link'
+        "header",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "list",
+        "bullet",
+        "link",
     ];
 
     const handleCreate = async (formData) => {
         try {
             await axios.post(route("jobs.store"), formData);
-            setReloadTrigger(prev => !prev);
+            setReloadTrigger((prev) => !prev);
             setShowJobForm(false);
             reset();
         } catch (error) {
@@ -66,7 +73,7 @@ const JobForm = ({
 
     const onSubmit = async (data) => {
         const formData = new FormData();
-        
+
         Object.entries(data).forEach(([key, value]) => {
             if (value !== null && value !== "") {
                 formData.append(key, value);
@@ -96,7 +103,9 @@ const JobForm = ({
     const skill_and_experience = watch("skill_and_experience");
 
     return (
-        <div className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ${showJobForm ? "block" : "hidden"}`}>
+        <div
+            className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ${showJobForm ? "block" : "hidden"}`}
+        >
             <div className="relative bg-white rounded-lg shadow-xl w-full max-w-3xl max-h-[90vh] overflow-y-auto">
                 <button
                     onClick={handleClose}
@@ -106,9 +115,14 @@ const JobForm = ({
                 </button>
 
                 <div className="p-6">
-                    <h2 className="text-2xl font-bold mb-6 text-center">Add New Job</h2>
+                    <h2 className="text-2xl font-bold mb-6 text-center">
+                        Add New Job
+                    </h2>
 
-                    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                    >
                         {/* Job Title */}
                         <div className="col-span-2">
                             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -116,11 +130,15 @@ const JobForm = ({
                             </label>
                             <input
                                 type="text"
-                                {...register("job_title", { required: "Job title is required" })}
+                                {...register("job_title", {
+                                    required: "Job title is required",
+                                })}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             />
                             {errors.job_title && (
-                                <p className="mt-1 text-sm text-red-600">{errors.job_title.message}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {errors.job_title.message}
+                                </p>
                             )}
                         </div>
 
@@ -131,11 +149,15 @@ const JobForm = ({
                             </label>
                             <input
                                 type="text"
-                                {...register("company_name", { required: "Company name is required" })}
+                                {...register("company_name", {
+                                    required: "Company name is required",
+                                })}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             />
                             {errors.company_name && (
-                                <p className="mt-1 text-sm text-red-600">{errors.company_name.message}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {errors.company_name.message}
+                                </p>
                             )}
                         </div>
 
@@ -146,11 +168,15 @@ const JobForm = ({
                             </label>
                             <input
                                 type="text"
-                                {...register("location", { required: "Location is required" })}
+                                {...register("location", {
+                                    required: "Location is required",
+                                })}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             />
                             {errors.location && (
-                                <p className="mt-1 text-sm text-red-600">{errors.location.message}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {errors.location.message}
+                                </p>
                             )}
                         </div>
 
@@ -239,7 +265,9 @@ const JobForm = ({
                                 Type *
                             </label>
                             <select
-                                {...register("type", { required: "Type is required" })}
+                                {...register("type", {
+                                    required: "Type is required",
+                                })}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             >
                                 <option value="full_time">Full Time</option>
@@ -255,7 +283,9 @@ const JobForm = ({
                                 Status *
                             </label>
                             <select
-                                {...register("status", { required: "Status is required" })}
+                                {...register("status", {
+                                    required: "Status is required",
+                                })}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             >
                                 <option value="active">Active</option>
@@ -272,7 +302,9 @@ const JobForm = ({
                             <ReactQuill
                                 theme="snow"
                                 value={description}
-                                onChange={(value) => setValue("description", value)}
+                                onChange={(value) =>
+                                    setValue("description", value)
+                                }
                                 modules={modules}
                                 formats={formats}
                                 className="border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -287,7 +319,9 @@ const JobForm = ({
                             <ReactQuill
                                 theme="snow"
                                 value={responsibilities}
-                                onChange={(value) => setValue("responsibilities", value)}
+                                onChange={(value) =>
+                                    setValue("responsibilities", value)
+                                }
                                 modules={modules}
                                 formats={formats}
                                 className="border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -302,7 +336,9 @@ const JobForm = ({
                             <ReactQuill
                                 theme="snow"
                                 value={requirements}
-                                onChange={(value) => setValue("requirements", value)}
+                                onChange={(value) =>
+                                    setValue("requirements", value)
+                                }
                                 modules={modules}
                                 formats={formats}
                                 className="border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -317,7 +353,9 @@ const JobForm = ({
                             <ReactQuill
                                 theme="snow"
                                 value={qualification}
-                                onChange={(value) => setValue("qualification", value)}
+                                onChange={(value) =>
+                                    setValue("qualification", value)
+                                }
                                 modules={modules}
                                 formats={formats}
                                 className="border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -332,7 +370,9 @@ const JobForm = ({
                             <ReactQuill
                                 theme="snow"
                                 value={skill_and_experience}
-                                onChange={(value) => setValue("skill_and_experience", value)}
+                                onChange={(value) =>
+                                    setValue("skill_and_experience", value)
+                                }
                                 modules={modules}
                                 formats={formats}
                                 className="border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
