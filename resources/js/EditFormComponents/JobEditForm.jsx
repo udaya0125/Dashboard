@@ -11,7 +11,12 @@ const JobEditForm = ({
     handleUpdate,
 }) => {
     const [submitting, setSubmitting] = useState(false);
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+    } = useForm({
         defaultValues: {
             job_title: editingJob?.job_title || "",
             company_name: editingJob?.company_name || "",
@@ -20,12 +25,12 @@ const JobEditForm = ({
             position: editingJob?.position || "",
             type: editingJob?.type || "full_time",
             status: editingJob?.status || "active",
-        }
+        },
     });
 
     const onSubmit = async (data) => {
         const formData = new FormData();
-        
+
         Object.entries(data).forEach(([key, value]) => {
             if (value !== null && value !== "") {
                 formData.append(key, value);
@@ -52,7 +57,9 @@ const JobEditForm = ({
     };
 
     return (
-        <div className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50`}>
+        <div
+            className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50`}
+        >
             <div className="relative bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
                 <button
                     onClick={handleClose}
@@ -62,9 +69,14 @@ const JobEditForm = ({
                 </button>
 
                 <div className="p-6">
-                    <h2 className="text-2xl font-bold mb-6 text-center">Edit Job</h2>
+                    <h2 className="text-2xl font-bold mb-6 text-center">
+                        Edit Job
+                    </h2>
 
-                    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                    >
                         {/* Job Title */}
                         <div className="col-span-2">
                             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -72,11 +84,15 @@ const JobEditForm = ({
                             </label>
                             <input
                                 type="text"
-                                {...register("job_title", { required: "Job title is required" })}
+                                {...register("job_title", {
+                                    required: "Job title is required",
+                                })}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             />
                             {errors.job_title && (
-                                <p className="mt-1 text-sm text-red-600">{errors.job_title.message}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {errors.job_title.message}
+                                </p>
                             )}
                         </div>
 
@@ -87,11 +103,15 @@ const JobEditForm = ({
                             </label>
                             <input
                                 type="text"
-                                {...register("company_name", { required: "Company name is required" })}
+                                {...register("company_name", {
+                                    required: "Company name is required",
+                                })}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             />
                             {errors.company_name && (
-                                <p className="mt-1 text-sm text-red-600">{errors.company_name.message}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {errors.company_name.message}
+                                </p>
                             )}
                         </div>
 
@@ -102,11 +122,15 @@ const JobEditForm = ({
                             </label>
                             <input
                                 type="text"
-                                {...register("location", { required: "Location is required" })}
+                                {...register("location", {
+                                    required: "Location is required",
+                                })}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             />
                             {errors.location && (
-                                <p className="mt-1 text-sm text-red-600">{errors.location.message}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {errors.location.message}
+                                </p>
                             )}
                         </div>
 
@@ -140,7 +164,9 @@ const JobEditForm = ({
                                 Type *
                             </label>
                             <select
-                                {...register("type", { required: "Type is required" })}
+                                {...register("type", {
+                                    required: "Type is required",
+                                })}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             >
                                 <option value="full_time">Full Time</option>
@@ -156,7 +182,9 @@ const JobEditForm = ({
                                 Status *
                             </label>
                             <select
-                                {...register("status", { required: "Status is required" })}
+                                {...register("status", {
+                                    required: "Status is required",
+                                })}
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             >
                                 <option value="active">Active</option>
