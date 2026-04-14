@@ -3,11 +3,15 @@ import { LoaderCircle, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) => {
+const ContactForm = ({
+    showContactForm,
+    setShowContactForm,
+    setReloadTrigger,
+}) => {
     const [submitting, setSubmitting] = useState(false);
     const [previewImage, setPreviewImage] = useState(null);
     const [backendErrors, setBackendErrors] = useState({});
-    
+
     const {
         register,
         handleSubmit,
@@ -32,8 +36,11 @@ const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) 
 
     const handleCreate = async (formData) => {
         try {
-            const response = await axios.post(route("contacts.store"), formData);
-            setReloadTrigger(prev => !prev);
+            const response = await axios.post(
+                route("contacts.store"),
+                formData,
+            );
+            setReloadTrigger((prev) => !prev);
             setShowContactForm(false);
             return response;
         } catch (error) {
@@ -53,35 +60,35 @@ const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) 
             clearErrors();
 
             const formData = new FormData();
-            
+
             // Required fields
-            formData.append('name', data.name.trim());
-            formData.append('email', data.email.trim());
-            formData.append('status', data.status);
-            
+            formData.append("name", data.name.trim());
+            formData.append("email", data.email.trim());
+            formData.append("status", data.status);
+
             // Optional fields
-            if (data.tags) formData.append('tags', data.tags);
-            if (data.project) formData.append('project', data.project);
+            if (data.tags) formData.append("tags", data.tags);
+            if (data.project) formData.append("project", data.project);
             if (data.image && data.image[0]) {
-                formData.append('image', data.image[0]);
+                formData.append("image", data.image[0]);
             }
 
             await handleCreate(formData);
             resetForm();
         } catch (error) {
             console.error("Form submission error", error);
-            
+
             // Set backend errors to form errors
             if (backendErrors.name) {
                 setError("name", {
                     type: "server",
-                    message: backendErrors.name[0]
+                    message: backendErrors.name[0],
                 });
             }
             if (backendErrors.email) {
                 setError("email", {
                     type: "server",
-                    message: backendErrors.email[0]
+                    message: backendErrors.email[0],
                 });
             }
         } finally {
@@ -108,7 +115,9 @@ const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) 
     }, [imageFile]);
 
     return (
-        <div className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ${showContactForm ? "block" : "hidden"}`}>
+        <div
+            className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ${showContactForm ? "block" : "hidden"}`}
+        >
             <div className="relative bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
                 <button
                     onClick={handleClose}
@@ -118,12 +127,17 @@ const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) 
                 </button>
 
                 <div className="p-6">
-                    <h2 className="text-2xl font-bold mb-6 text-center">Add New Contact</h2>
+                    <h2 className="text-2xl font-bold mb-6 text-center">
+                        Add New Contact
+                    </h2>
 
-                    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="flex flex-col gap-4"
+                    >
                         {/* Form fields remain the same as in your original ContactForm */}
                         {/* ... */}
-                        
+
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Profile Image
@@ -131,9 +145,9 @@ const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) 
                             <div className="flex items-center gap-4">
                                 {previewImage && (
                                     <div className="w-16 h-16 rounded-full overflow-hidden border border-gray-200">
-                                        <img 
-                                            src={previewImage} 
-                                            alt="Preview" 
+                                        <img
+                                            src={previewImage}
+                                            alt="Preview"
                                             className="w-full h-full object-cover"
                                         />
                                     </div>
@@ -146,12 +160,16 @@ const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) 
                                         {...register("image")}
                                     />
                                     <div className="px-4 py-2 border rounded-lg cursor-pointer hover:bg-gray-50 text-center">
-                                        {previewImage ? "Change Image" : "Select Image"}
+                                        {previewImage
+                                            ? "Change Image"
+                                            : "Select Image"}
                                     </div>
                                 </label>
                             </div>
                             {backendErrors.image && (
-                                <p className="mt-1 text-sm text-red-600">{backendErrors.image[0]}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {backendErrors.image[0]}
+                                </p>
                             )}
                         </div>
 
@@ -165,13 +183,17 @@ const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) 
                                 className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                                     errors.name ? "border-red-500" : ""
                                 }`}
-                                {...register("name", { 
+                                {...register("name", {
                                     required: "Name is required",
-                                    validate: value => value.trim() !== "" || "Name cannot be empty"
+                                    validate: (value) =>
+                                        value.trim() !== "" ||
+                                        "Name cannot be empty",
                                 })}
                             />
                             {errors.name && (
-                                <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {errors.name.message}
+                                </p>
                             )}
                         </div>
 
@@ -185,16 +207,18 @@ const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) 
                                 className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
                                     errors.email ? "border-red-500" : ""
                                 }`}
-                                {...register("email", { 
+                                {...register("email", {
                                     required: "Email is required",
                                     pattern: {
                                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                        message: "Invalid email address"
-                                    }
+                                        message: "Invalid email address",
+                                    },
                                 })}
                             />
                             {errors.email && (
-                                <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {errors.email.message}
+                                </p>
                             )}
                         </div>
 
@@ -210,7 +234,9 @@ const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) 
                                 placeholder="Comma separated tags"
                             />
                             {backendErrors.tags && (
-                                <p className="mt-1 text-sm text-red-600">{backendErrors.tags[0]}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {backendErrors.tags[0]}
+                                </p>
                             )}
                         </div>
 
@@ -225,7 +251,9 @@ const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) 
                                 {...register("project")}
                             />
                             {backendErrors.project && (
-                                <p className="mt-1 text-sm text-red-600">{backendErrors.project[0]}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {backendErrors.project[0]}
+                                </p>
                             )}
                         </div>
 
@@ -236,14 +264,18 @@ const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) 
                             </label>
                             <select
                                 className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                {...register("status", { required: "Status is required" })}
+                                {...register("status", {
+                                    required: "Status is required",
+                                })}
                             >
                                 <option value="active">Active</option>
                                 <option value="inactive">Inactive</option>
                                 <option value="archived">Archived</option>
                             </select>
                             {errors.status && (
-                                <p className="mt-1 text-sm text-red-600">{errors.status.message}</p>
+                                <p className="mt-1 text-sm text-red-600">
+                                    {errors.status.message}
+                                </p>
                             )}
                         </div>
 
@@ -265,7 +297,9 @@ const ContactForm = ({ showContactForm, setShowContactForm, setReloadTrigger }) 
                                         <LoaderCircle className="animate-spin h-4 w-4" />
                                         Processing...
                                     </>
-                                ) : "Add Contact"}
+                                ) : (
+                                    "Add Contact"
+                                )}
                             </button>
                         </div>
                     </form>
