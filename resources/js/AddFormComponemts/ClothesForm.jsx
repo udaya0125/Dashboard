@@ -50,43 +50,46 @@ const ClothesForm = ({
 
     const validatePrices = () => {
         if (productForm.discount_price && productForm.actual_price) {
-            return parseFloat(productForm.discount_price) < parseFloat(productForm.actual_price);
+            return (
+                parseFloat(productForm.discount_price) <
+                parseFloat(productForm.actual_price)
+            );
         }
         return true;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!validatePrices()) {
             alert("Discount price must be less than actual price");
             return;
         }
-        
+
         setSubmitting(true);
-        
+
         try {
             const formData = new FormData();
-            
-            formData.append('clothes_name', productForm.clothes_name);
-            formData.append('actual_price', productForm.actual_price);
-            formData.append('discount_price', productForm.discount_price);
-            formData.append('category', productForm.category);
-            formData.append('description', productForm.description);
-            formData.append('short_description', productForm.short_description);
+
+            formData.append("clothes_name", productForm.clothes_name);
+            formData.append("actual_price", productForm.actual_price);
+            formData.append("discount_price", productForm.discount_price);
+            formData.append("category", productForm.category);
+            formData.append("description", productForm.description);
+            formData.append("short_description", productForm.short_description);
 
             if (productForm.image) {
                 if (Array.isArray(productForm.image)) {
                     productForm.image.forEach((file) => {
-                        formData.append('images[]', file);
+                        formData.append("images[]", file);
                     });
                 } else {
-                    formData.append('images[]', productForm.image);
+                    formData.append("images[]", productForm.image);
                 }
             }
 
             if (editingProducts) {
-                formData.append('_method', 'PUT');
+                formData.append("_method", "PUT");
                 await handleUpdate(formData, editingProducts.id);
             } else {
                 await axios.post(route("product.store"), formData, {
@@ -117,56 +120,68 @@ const ClothesForm = ({
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
-        
+
         if (files) {
-            setProductForm(prev => ({
+            setProductForm((prev) => ({
                 ...prev,
-                [name]: files.length > 1 ? Array.from(files) : files[0]
+                [name]: files.length > 1 ? Array.from(files) : files[0],
             }));
         } else {
-            setProductForm(prev => ({
+            setProductForm((prev) => ({
                 ...prev,
-                [name]: value
+                [name]: value,
             }));
         }
     };
 
     const handleDescriptionChange = (value) => {
-        setProductForm(prev => ({
+        setProductForm((prev) => ({
             ...prev,
-            description: value
+            description: value,
         }));
     };
 
     // Quill modules and formats configuration
     const modules = {
         toolbar: [
-            [{ 'header': [1, 2, 3, false] }],
-            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['link', 'image'],
-            ['clean']
+            [{ header: [1, 2, 3, false] }],
+            ["bold", "italic", "underline", "strike", "blockquote"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image"],
+            ["clean"],
         ],
     };
 
     const formats = [
-        'header',
-        'bold', 'italic', 'underline', 'strike', 'blockquote',
-        'list', 'bullet',
-        'link', 'image'
+        "header",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "blockquote",
+        "list",
+        "bullet",
+        "link",
+        "image",
     ];
 
     const calculateDiscountPercentage = () => {
         if (productForm.actual_price && productForm.discount_price) {
-            return Math.round(((productForm.actual_price - productForm.discount_price) / productForm.actual_price * 100));
+            return Math.round(
+                ((productForm.actual_price - productForm.discount_price) /
+                    productForm.actual_price) *
+                    100,
+            );
         }
         return 0;
     };
 
     return (
-        <div className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ${
-            showForm ? "block" : "hidden"
-        }`}>
+        <div
+            className={`fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 ${
+                showForm ? "block" : "hidden"
+            }`}
+        >
             <div className="relative px-6 py-6 rounded-xl w-full max-w-lg h-[600px] overflow-y-auto bg-white shadow-md">
                 <button
                     onClick={() => {
@@ -183,10 +198,13 @@ const ClothesForm = ({
                 <h2 className="text-center text-xl font-medium mb-6">
                     {editingProducts ? "Edit Product" : "Add New Product"}
                 </h2>
-                
+
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label
+                            htmlFor="name"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                        >
                             Product Name
                         </label>
                         <input
@@ -196,13 +214,17 @@ const ClothesForm = ({
                             value={productForm.clothes_name}
                             onChange={handleChange}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-1">
-                            {editingProducts ? "Update Image (optional)" : "Product Images"}
+                        <label
+                            htmlFor="image"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                        >
+                            {editingProducts
+                                ? "Update Image (optional)"
+                                : "Product Images"}
                         </label>
                         <input
                             type="file"
@@ -223,7 +245,6 @@ const ClothesForm = ({
                             onChange={handleChange}
                             value={productForm.category}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          
                         >
                             <option value="">Select Category</option>
                             <option value="tshirt">T-Shirt</option>
@@ -234,7 +255,10 @@ const ClothesForm = ({
                     </div>
 
                     <div>
-                        <label htmlFor="actual_price" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label
+                            htmlFor="actual_price"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                        >
                             Actual Price
                         </label>
                         <input
@@ -246,12 +270,14 @@ const ClothesForm = ({
                             onChange={handleChange}
                             value={productForm.actual_price}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                           
                         />
                     </div>
 
                     <div>
-                        <label htmlFor="discount_price" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label
+                            htmlFor="discount_price"
+                            className="block text-sm font-medium text-gray-700 mb-1"
+                        >
                             Discounted Price
                         </label>
                         <input
@@ -264,13 +290,13 @@ const ClothesForm = ({
                             onChange={handleChange}
                             value={productForm.discount_price}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          
                         />
-                        {productForm.actual_price && productForm.discount_price && (
-                            <div className="text-sm text-green-600 mt-1">
-                                {calculateDiscountPercentage()}% OFF
-                            </div>
-                        )}
+                        {productForm.actual_price &&
+                            productForm.discount_price && (
+                                <div className="text-sm text-green-600 mt-1">
+                                    {calculateDiscountPercentage()}% OFF
+                                </div>
+                            )}
                     </div>
 
                     <div>
@@ -284,7 +310,6 @@ const ClothesForm = ({
                             onChange={handleChange}
                             value={productForm.short_description}
                             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            
                         />
                     </div>
 
@@ -308,7 +333,11 @@ const ClothesForm = ({
                             type="submit"
                             className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                         >
-                            {submitting ? "Processing..." : editingProducts ? "Update Product" : "Add Product"}
+                            {submitting
+                                ? "Processing..."
+                                : editingProducts
+                                  ? "Update Product"
+                                  : "Add Product"}
                         </button>
                     </div>
                 </form>
